@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import { MyContext } from '@/context/MyContext';
 import { useRouter } from 'next/navigation';
 import { useMediaQuery } from "react-responsive";
+import InstallButton from '../InstallButton/InstallButton';
 
 
 /* import Container from 'react-bootstrap/Container';
@@ -70,6 +71,7 @@ const isDesktop = useMediaQuery({
           className="d-inline-block align-top rounded me-2" />
           {mainTitle}
         </Navbar.Brand>
+        <InstallButton />
         <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={handleShowOffCanvas} />
         {!showOffCanvas&&isDesktop &&
           <Navbar.Collapse id="basic-navbar-nav">
