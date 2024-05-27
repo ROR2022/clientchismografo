@@ -1,9 +1,22 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+//import Image from "next/image";
+//import styles from "./page.module.css";
+
+import AllChismes from "@/components/AllChismes/AllChismes";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
+    <div >
+      
+      <AllChismes />
+      
+    </div>  
+  );
+}
+
+/**
+ * 
+ * <main className={styles.main}>
       <div className={styles.description}>
         <p>
           Get started by editing&nbsp;
@@ -16,7 +29,7 @@ export default function Home() {
             rel="noopener noreferrer"
           >
             By{" "}
-            <Image
+            <img
               src="/vercel.svg"
               alt="Vercel Logo"
               className={styles.vercelLogo}
@@ -29,7 +42,7 @@ export default function Home() {
       </div>
 
       <div className={styles.center}>
-        <Image
+        <img
           className={styles.logo}
           src="/next.svg"
           alt="Next.js Logo"
@@ -91,5 +104,5 @@ export default function Home() {
         </a>
       </div>
     </main>
-  );
-}
+ * 
+ * * */
