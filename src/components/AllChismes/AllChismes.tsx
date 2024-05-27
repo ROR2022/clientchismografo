@@ -1,5 +1,5 @@
 "use client";
-import {useEffect, useState} from 'react'
+import {use, useEffect, useState} from 'react'
 import { getChismes } from '@/api/apiChismes'
 import CardChisme from '@/components/CardChisme/CardChisme'
 import { useContext } from 'react';
@@ -11,11 +11,19 @@ import { MyContext } from '@/context/MyContext'
 const AllChismes = () => {
     const [chismes, setChismes]:any = useState([]);
     const {dataLocalStorage}= useContext(MyContext);
+    const [askForNotification, setAskForNotification] = useState(false);
     useEffect(() => {
         getAllChismes();
         requestNotificationPermission();
         //console.log('Varibles de entorno', process.env.NEXT_PUBLIC_DEV_ENV)
     }, []);
+
+    useEffect(() => {
+        if (askForNotification===false) {
+            requestNotificationPermission();
+            setAskForNotification(true);
+        }
+    }, [askForNotification]);
 
     const sendNotification = async (title:string, body:string) => {
         if ('Notification' in window) {
