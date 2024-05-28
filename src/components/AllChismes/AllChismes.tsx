@@ -22,6 +22,78 @@ const AllChismes = () => {
         //console.log('Varibles de entorno', process.env.NEXT_PUBLIC_DEV_ENV)
     }, []);
 
+
+    useEffect(() => {
+        if ("Notification" in window) {
+          const setupNotifications = () => {
+            navigator.serviceWorker.ready.then((reg) => {
+              reg.pushManager.getSubscription().then(async(sub) => {
+                if (
+                  sub &&
+                  !(
+                    sub.expirationTime &&
+                    Date.now() > sub.expirationTime - 5 * 60 * 1000
+                  )
+                ) {
+                    const res = await fetch(`${hostURL}/subscribe`, {
+                        method: "POST",
+                        body: JSON.stringify(sub),
+                        headers: {
+                          "content-type": "application/json",
+                        },
+                      });
+                
+                      const data = await res.json();
+                      console.log(data);
+                  //setSubscription(sub);
+                  //setIsSubscribed(true);
+                } else {
+                  reg.pushManager
+                    .subscribe({
+                      userVisibleOnly: true,
+                      applicationServerKey: VAPID_PUBLIC_KEY,
+                    })
+                    .then(async(newSub) => {
+                      console.log("User is subscribed:", newSub);
+                      
+                      const res = await fetch(`${hostURL}/subscribe`, {
+                        method: "POST",
+                        body: JSON.stringify(newSub),
+                        headers: {
+                          "content-type": "application/json",
+                        },
+                      });
+                
+                      const data = await res.json();
+                      console.log(data);
+                      //setSubscription(newSub);
+                      //setIsSubscribed(true);
+                    })
+                    .catch((err) => {
+                      if (Notification.permission === "denied") {
+                        console.warn("Permission for notifications was denied");
+                      } else {
+                        console.error("Failed to subscribe the user: ", err);
+                      }
+                    });
+                }
+              });
+              //setRegistration(reg);
+            });
+          };
+          if (Notification.permission === "granted") {
+            setupNotifications();
+          } else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then((permission) => {
+              if (permission === "granted") {
+                setupNotifications();
+              }
+            });
+          }
+        }
+      }, []);
+
+
     useEffect(() => {
         if (askForNotification===false) {
             requestNotificationPermission();
