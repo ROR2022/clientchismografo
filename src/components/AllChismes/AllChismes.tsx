@@ -4,6 +4,7 @@ import { getChismes } from '@/api/apiChismes'
 import CardChisme from '@/components/CardChisme/CardChisme'
 import { useContext } from 'react';
 import { MyContext } from '@/context/MyContext'
+import { VAPID_PUBLIC_KEY } from '../dataEnv';
 
 
 
@@ -15,6 +16,9 @@ const AllChismes = () => {
     useEffect(() => {
         getAllChismes();
         requestNotificationPermission();
+        if("serviceWorker" in navigator) {
+            handleServiceWorker();
+          }
         //console.log('Varibles de entorno', process.env.NEXT_PUBLIC_DEV_ENV)
     }, []);
 
@@ -24,6 +28,26 @@ const AllChismes = () => {
             setAskForNotification(true);
         }
     }, [askForNotification]);
+
+    const handleServiceWorker = async () => {
+        const register = await navigator.serviceWorker.register("/sw.js");
+  
+        const subscription = await register.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: VAPID_PUBLIC_KEY,
+        });
+  
+        const res = await fetch("http://localhost:7500/subscribeSW", {
+          method: "POST",
+          body: JSON.stringify(subscription),
+          headers: {
+            "content-type": "application/json",
+          },
+        });
+  
+        const data = await res.json();
+        console.log(data);
+      };
 
     const sendNotification = async (title:string, body:string) => {
         if ('Notification' in window) {
