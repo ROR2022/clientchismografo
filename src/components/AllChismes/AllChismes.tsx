@@ -4,7 +4,7 @@ import { getChismes } from '@/api/apiChismes'
 import CardChisme from '@/components/CardChisme/CardChisme'
 import { useContext } from 'react';
 import { MyContext } from '@/context/MyContext'
-import { VAPID_PUBLIC_KEY } from '../dataEnv';
+import { VAPID_PUBLIC_KEY,hostURL } from '../dataEnv';
 
 
 
@@ -37,7 +37,7 @@ const AllChismes = () => {
           applicationServerKey: VAPID_PUBLIC_KEY,
         });
   
-        const res = await fetch("http://localhost:7500/subscribeSW", {
+        const res = await fetch(`${hostURL}/subscribe`, {
           method: "POST",
           body: JSON.stringify(subscription),
           headers: {
