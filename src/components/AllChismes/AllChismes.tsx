@@ -53,6 +53,8 @@ const AllChismes = () => {
                 if (permission === 'granted') {
                     sendNotification('Welcome to Gossip', 'You will receive notifications about the chismes');
                 }
+            }else{
+                sendNotification('Welcome to Gossip', 'You will receive notifications about the chismes');
             }
         }
     }
