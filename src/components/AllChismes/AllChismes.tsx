@@ -93,7 +93,7 @@ const AllChismes = () => {
     }, []);
 
 
-    useEffect(() => {
+    /* useEffect(() => {
         if ("Notification" in window) {
           const setupNotifications = () => {
             navigator.serviceWorker.ready.then((reg):void => {
@@ -174,7 +174,7 @@ const AllChismes = () => {
             });
           }
         }
-      }, []); 
+      }, []);  */
 
 
     useEffect(() => {
@@ -188,21 +188,28 @@ const AllChismes = () => {
         const register = await navigator.serviceWorker.register("/worker/index290524b.js");
         console.log("Service Worker registered(290524b):...", register);
   
-        /* const subscription = await register.pushManager.subscribe({
+         const subscription = await register.pushManager.subscribe({
           userVisibleOnly: true,
           applicationServerKey: VAPID_PUBLIC_KEY,
         });
+        console.log("subscription Push Manager:...", subscription);
+        let dataSubscription = {
+            ...subscription,
+            dataUser:{
+                ...dataLocalStorage
+            }
+        }
   
         const res = await fetch(`${hostURL}/subscribe`, {
           method: "POST",
-          body: JSON.stringify(subscription),
+          body: JSON.stringify(dataSubscription),
           headers: {
             "content-type": "application/json",
           },
         });
   
         const data = await res.json();
-        console.log(data); */
+        console.log('Result subcription client in Notifications Servirce:',data); 
       };
 
     const sendNotification = async (title:string, body:string) => {
