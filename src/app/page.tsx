@@ -19,6 +19,9 @@ export default function Home() {
       navigator.serviceWorker.getRegistrations().then((registrations) => {
         registrations.forEach((registration) => {
           console.log('Unregistering service worker:', registration);
+          if(registration.active?.scriptURL !== 'https://clientchismografo.vercel.app/worker/index290524a.js'){
+            registration.unregister();
+          }
           //registration.unregister();
         });
       }).catch((error) => {
