@@ -127,16 +127,17 @@ const AllChismes = () => {
                   reg.pushManager
                     .subscribe({
                       userVisibleOnly: true,
-                      applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
+                      applicationServerKey: VAPID_PUBLIC_KEY,
                     })
                     .then(async(newSub) => {
-                      console.log("User is subscribed:", newSub);
+                      
                       const dataSubscription = {
                         ...newSub,
                         dataUser:{
                             ...dataLocalStorage
                         }
                     }
+                    console.log("User is subscribed:", dataSubscription);
                       
                       const res = await fetch(`${hostURL}/subscribe`, {
                         method: "POST",
