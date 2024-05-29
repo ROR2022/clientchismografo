@@ -18,7 +18,8 @@ export default function Home() {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then((registrations) => {
         registrations.forEach((registration) => {
-          registration.unregister();
+          console.log('Unregistering service worker:', registration);
+          //registration.unregister();
         });
       }).catch((error) => {
         console.error('Error unregistering service workers:', error);
