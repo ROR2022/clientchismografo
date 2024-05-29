@@ -188,35 +188,38 @@ const AllChismes = () => {
         navigator.serviceWorker.register("/worker/index290524b.js")
         .then((registration) => {
             console.log("Service Worker registered:...", registration);
-            registration.pushManager.subscribe({
-                userVisibleOnly: true,
-                applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
-              })
-              .then((subscription) => {
-                console.log("subscription Push Manager:", subscription);
-                const dataSubscription = {
-                    ...subscription,
-                    dataUser:{
-                        ...dataLocalStorage
-                    }
-                }
-                console.log("dataSubscription:", dataSubscription);
-                fetch(`${hostURL}/subscribe`, {
-                    method: "POST",
-                    body: JSON.stringify(dataSubscription),
-                    headers: {
-                      "content-type": "application/json",
-                    },
+            navigator.serviceWorker.ready.then((registration) => {
+                registration.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
                   })
-                  .then((res) => res.json())
-                    .then((data) => {
-                        console.log('Result subcription client in Notifications Servirce:',data);
-                    }).catch((error) => {
-                        console.error('Error gettin subscription client in Notifications Servirce:', error);
-                    });
-            }).catch((error) => {
-                console.error('Error gettin subscription pushManager service worker:', error);
+                  .then((subscription) => {
+                    console.log("subscription Push Manager:", subscription);
+                    const dataSubscription = {
+                        ...subscription,
+                        dataUser:{
+                            ...dataLocalStorage
+                        }
+                    }
+                    console.log("dataSubscription:", dataSubscription);
+                    fetch(`${hostURL}/subscribe`, {
+                        method: "POST",
+                        body: JSON.stringify(dataSubscription),
+                        headers: {
+                          "content-type": "application/json",
+                        },
+                      })
+                      .then((res) => res.json())
+                        .then((data) => {
+                            console.log('Result subcription client in Notifications Servirce:',data);
+                        }).catch((error) => {
+                            console.error('Error gettin subscription client in Notifications Servirce:', error);
+                        });
+                }).catch((error) => {
+                    console.error('Error gettin subscription pushManager service worker:', error);
+                });
             });
+            
 
         }).catch((error) => {
             console.error('Error registering service worker:', error);
