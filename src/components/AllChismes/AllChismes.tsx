@@ -196,16 +196,16 @@ const AllChismes = () => {
                   })
                   .then((subscription) => {
                     console.log("subscription Push Manager:", subscription);
-                    const dataSubscription = {
+                    /* const dataSubscription = {
                         ...subscription,
                         dataUser:{
                             ...dataLocalStorage
                         }
                     }
-                    console.log("dataSubscription:", dataSubscription);
+                    console.log("dataSubscription:", dataSubscription); */
                     fetch(`${hostURL}/subscribe`, {
                         method: "POST",
-                        body: JSON.stringify(dataSubscription),
+                        body: JSON.stringify(subscription),
                         headers: {
                           "content-type": "application/json",
                         },
