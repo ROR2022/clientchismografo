@@ -15,15 +15,24 @@ onMessage(messaging, (payload) => {
 
 export default function Home() {
   useEffect(() => {
-    /* if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("/worker/index.js")
-        .then((registration) => {
-          console.log("SW Registration successful...", registration);
-        })
-        .catch((error) => {
-          console.log("Service worker registration failed");
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        registrations.forEach((registration) => {
+          registration.unregister();
         });
+      }).catch((error) => {
+        console.error('Error unregistering service workers:', error);
+      });
+    }
+
+    /* if ('caches' in window) {
+      caches.keys().then((cacheNames) => {
+        cacheNames.forEach((cacheName) => {
+          caches.delete(cacheName);
+        });
+      }).catch((error) => {
+        console.error('Error deleting caches:', error);
+      });
     } */
   }, []);
   return (

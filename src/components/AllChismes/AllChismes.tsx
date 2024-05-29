@@ -185,7 +185,8 @@ const AllChismes = () => {
     }, [askForNotification]);
 
     const handleServiceWorker = async () => {
-        const register = await navigator.serviceWorker.register("/worker/index.js");
+        const register = await navigator.serviceWorker.register("/worker/index290524a.js");
+        console.log("Service Worker registered(290524a):...", register);
   
         const subscription = await register.pushManager.subscribe({
           userVisibleOnly: true,
