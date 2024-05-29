@@ -187,12 +187,13 @@ const AllChismes = () => {
     const handleServiceWorker = async () => {
         navigator.serviceWorker.register("/worker/index290524b.js")
         .then((registration) => {
-            console.log("Service Worker registered(290524b):...", registration);
+            console.log("Service Worker registered:...", registration);
             registration.pushManager.subscribe({
                 userVisibleOnly: true,
-                applicationServerKey: VAPID_PUBLIC_KEY,
+                applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
               })
               .then((subscription) => {
+                console.log("subscription Push Manager:", subscription);
                 const dataSubscription = {
                     ...subscription,
                     dataUser:{
