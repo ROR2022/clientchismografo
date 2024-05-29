@@ -162,7 +162,7 @@ const AllChismes = () => {
     }, [askForNotification]);
 
     const handleServiceWorker = async () => {
-        const register = await navigator.serviceWorker.register("/sw.js");
+        const register = await navigator.serviceWorker.register("/worker/index.js");
   
         const subscription = await register.pushManager.subscribe({
           userVisibleOnly: true,
