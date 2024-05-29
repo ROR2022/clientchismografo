@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import { MyContext } from '@/context/MyContext';
 import { useState, useEffect, FC } from 'react';
 import { useRouter } from 'next/navigation';
+import ChismeFooter from '@/components/ChismeFooter/ChismeFooter';
 
 
 interface ChismeOffCanvasType {
@@ -63,6 +64,9 @@ const ChismeOffCanvas: FC<ChismeOffCanvasType> = ({ showOffCanvas, handleCloseOf
             }
           </NavDropdown>
         </Nav>
+        <div className='mt-5'>
+        <ChismeFooter />
+        </div>
       </Offcanvas.Body>
     </Offcanvas>
   )
