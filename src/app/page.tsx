@@ -18,8 +18,9 @@ export default function Home() {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then((registrations) => {
         registrations.forEach((registration) => {
-          console.log('Unregistering service worker:', registration);
+          
           if(registration.active?.scriptURL !== 'https://clientchismografo.vercel.app/worker/index290524b.js'){
+            console.log('Unregistering service worker:', registration.active?.scriptURL);
             registration.unregister();
           }
           //registration.unregister();
