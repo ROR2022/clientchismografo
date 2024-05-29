@@ -185,31 +185,47 @@ const AllChismes = () => {
     }, [askForNotification]);
 
     const handleServiceWorker = async () => {
-        const register = await navigator.serviceWorker.register("/worker/index290524b.js");
-        console.log("Service Worker registered(290524b):...", register);
-  
-         const subscription = await register.pushManager.subscribe({
-          userVisibleOnly: true,
-          applicationServerKey: VAPID_PUBLIC_KEY,
+        navigator.serviceWorker.register("/worker/index290524b.js")
+        .then((registration) => {
+            console.log("Service Worker registered(290524b):...", registration);
+            registration.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: VAPID_PUBLIC_KEY,
+              })
+              .then((subscription) => {
+                const dataSubscription = {
+                    ...subscription,
+                    dataUser:{
+                        ...dataLocalStorage
+                    }
+                }
+                console.log("dataSubscription:", dataSubscription);
+                fetch(`${hostURL}/subscribe`, {
+                    method: "POST",
+                    body: JSON.stringify(dataSubscription),
+                    headers: {
+                      "content-type": "application/json",
+                    },
+                  })
+                  .then((res) => res.json())
+                    .then((data) => {
+                        console.log('Result subcription client in Notifications Servirce:',data);
+                    }).catch((error) => {
+                        console.error('Error gettin subscription client in Notifications Servirce:', error);
+                    });
+            }).catch((error) => {
+                console.error('Error gettin subscription pushManager service worker:', error);
+            });
+
+        }).catch((error) => {
+            console.error('Error registering service worker:', error);
         });
-        console.log("subscription Push Manager:...", subscription);
-        let dataSubscription = {
-            ...subscription,
-            dataUser:{
-                ...dataLocalStorage
-            }
-        }
+
+        
   
-        const res = await fetch(`${hostURL}/subscribe`, {
-          method: "POST",
-          body: JSON.stringify(dataSubscription),
-          headers: {
-            "content-type": "application/json",
-          },
-        });
-  
-        const data = await res.json();
-        console.log('Result subcription client in Notifications Servirce:',data); 
+         
+        
+        
       };
 
     const sendNotification = async (title:string, body:string) => {
