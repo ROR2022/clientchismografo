@@ -87,9 +87,8 @@ const AllChismes = () => {
     useEffect(() => {
         getAllChismes();
         requestNotificationPermission();
-        if("serviceWorker" in navigator) {
-            handleServiceWorker();
-          }
+        handleServiceWorker();
+        
         //console.log('Varibles de entorno', process.env.NEXT_PUBLIC_DEV_ENV)
     }, []);
 
@@ -186,9 +185,9 @@ const AllChismes = () => {
 
     const handleServiceWorker = async () => {
         const register = await navigator.serviceWorker.register("/worker/index290524b.js");
-        console.log("Service Worker registered(290524a):...", register);
+        console.log("Service Worker registered(290524b):...", register);
   
-        const subscription = await register.pushManager.subscribe({
+        /* const subscription = await register.pushManager.subscribe({
           userVisibleOnly: true,
           applicationServerKey: VAPID_PUBLIC_KEY,
         });
@@ -202,7 +201,7 @@ const AllChismes = () => {
         });
   
         const data = await res.json();
-        console.log(data);
+        console.log(data); */
       };
 
     const sendNotification = async (title:string, body:string) => {
