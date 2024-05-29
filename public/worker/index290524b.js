@@ -30,7 +30,8 @@ onBackgroundMessage(messaging, (payload) => {
 
 self.addEventListener("push", (event) => {
     //console.log("Push received:..", event);
-    const dataEvent = event.data
+    const dataEventText = event.data.text();
+    const dataEvent = JSON.parse(dataEventText);
     console.log("Push received ROR:..", dataEvent);
     event.waitUntil(
       self.registration.showNotification("Gossip RorApp", {
