@@ -17,9 +17,9 @@ export default function Home() {
   useEffect(() => {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
-        .register("/sw.js")
+        .register("/worker/index.js")
         .then((registration) => {
-          console.log("SW Registration successful...");
+          console.log("SW Registration successful...", registration);
         })
         .catch((error) => {
           console.log("Service worker registration failed");
