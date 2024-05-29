@@ -106,9 +106,15 @@ const AllChismes = () => {
                     Date.now() > sub.expirationTime - 5 * 60 * 1000
                   )
                 ) {
+                    const dataSubscription = {
+                        ...sub,
+                        dataUser:{
+                            ...dataLocalStorage
+                        }
+                    }
                     const res = await fetch(`${hostURL}/subscribe`, {
                         method: "POST",
-                        body: JSON.stringify(sub),
+                        body: JSON.stringify(dataSubscription),
                         headers: {
                           "content-type": "application/json",
                         },
@@ -126,10 +132,16 @@ const AllChismes = () => {
                     })
                     .then(async(newSub) => {
                       console.log("User is subscribed:", newSub);
+                      const dataSubscription = {
+                        ...newSub,
+                        dataUser:{
+                            ...dataLocalStorage
+                        }
+                    }
                       
                       const res = await fetch(`${hostURL}/subscribe`, {
                         method: "POST",
-                        body: JSON.stringify(newSub),
+                        body: JSON.stringify(dataSubscription),
                         headers: {
                           "content-type": "application/json",
                         },
