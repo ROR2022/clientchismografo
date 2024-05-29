@@ -20,8 +20,8 @@ export default function Home() {
         registrations.forEach((registration) => {
           
           if(registration.active?.scriptURL !== 'https://clientchismografo.vercel.app/worker/index290524b.js'){
-            console.log('Unregistering service worker:', registration.active?.scriptURL);
-            registration.unregister();
+            console.log('Unregistering service worker:', registration);
+            //registration.unregister();
           }
           //registration.unregister();
         });
