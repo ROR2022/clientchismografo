@@ -8,6 +8,66 @@ import { VAPID_PUBLIC_KEY,hostURL } from '../dataEnv';
 
 
 
+//import { getToken, onMessage, getMessaging } from "firebase/messaging";
+// Import the functions you need from the SDKs you need
+//import { getAnalytics } from "firebase/analytics";
+
+
+/* declare global {
+    interface Window {
+      registration: any; // Replace 'any' with the actual type if known
+    }
+  }
+ */// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+/* const firebaseConfig = {
+  apiKey: "AIzaSyCyItuReHRFKVwDIA3HwcmOtwPeBg52NdE",
+  authDomain: "chismografo-b04c3.firebaseapp.com",
+  projectId: "chismografo-b04c3",
+  storageBucket: "chismografo-b04c3.appspot.com",
+  messagingSenderId: "792405643751",
+  appId: "1:792405643751:web:0c180f0b9b32cf4a5e6d42",
+  measurementId: "G-1XQEQS6H8P"
+}; */
+
+// Initialize Firebase
+/* const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+console.log('analytics:...',analytics); */
+
+// Get registration token. Initially this makes a network call, once retrieved
+// subsequent calls to getToken will return from cache.
+
+ /* getToken(messaging, { vapidKey: 'BHkxcyUTCaLWZDriU2BeWXcum9px0Mk-T_sCrWZrUoJFTBIUuQk-DgHxIFCt_kADyI9e6Y9HSeFFuEgHvGKAo2w' })
+.then((currentToken) => {
+  if (currentToken) {
+    console.log('currentToken(FCM):...',currentToken);
+
+    // Send the token to your server and update the UI if necessary
+    // ...
+  } else {
+    // Show permission request UI
+    console.log('No registration token available. Request permission to generate one.');
+    // ...
+  }
+}).catch((err) => {
+  console.log('An error occurred while retrieving token. ', err);
+  // ...
+});
+onMessage(messaging, (payload) => {
+    console.log('Message received. ', payload);
+    // ...
+  }); */ 
+
+     
+
+
+
+
+
 
 const AllChismes = () => {
     const [chismes, setChismes]:any = useState([]);
@@ -26,7 +86,7 @@ const AllChismes = () => {
     useEffect(() => {
         if ("Notification" in window) {
           const setupNotifications = () => {
-            navigator.serviceWorker.ready.then((reg) => {
+            navigator.serviceWorker.ready.then((reg):void => {
               reg.pushManager.getSubscription().then(async(sub) => {
                 if (
                   sub &&
@@ -44,7 +104,7 @@ const AllChismes = () => {
                       });
                 
                       const data = await res.json();
-                      console.log(data);
+                      console.log('result subscription:...',data);
                   //setSubscription(sub);
                   //setIsSubscribed(true);
                 } else {
@@ -71,9 +131,9 @@ const AllChismes = () => {
                     })
                     .catch((err) => {
                       if (Notification.permission === "denied") {
-                        console.warn("Permission for notifications was denied");
+                        console.log("Permission for notifications was denied");
                       } else {
-                        console.error("Failed to subscribe the user: ", err);
+                        console.log("Failed to subscribe the user: ", err);
                       }
                     });
                 }
@@ -91,7 +151,7 @@ const AllChismes = () => {
             });
           }
         }
-      }, []);
+      }, []); 
 
 
     useEffect(() => {
@@ -147,10 +207,12 @@ const AllChismes = () => {
             if (Notification.permission !== 'granted') {
                 const permission = await Notification.requestPermission();
                 if (permission === 'granted') {
-                    sendNotification('Welcome to Gossip', 'You will receive notifications about the chismes');
+                    console.log('Permission granted');
+                    //sendNotification('Welcome to Gossip', 'You will receive notifications about the chismes');
                 }
             }else{
-                sendNotification('Welcome to Gossip', 'You will receive notifications about the chismes');
+                console.log('Permission granted');
+                //sendNotification('Welcome to Gossip', 'You will receive notifications about the chismes');
             }
         }
     }

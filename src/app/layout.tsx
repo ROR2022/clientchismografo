@@ -11,6 +11,7 @@ const ChismeFooter= dynamic(()=>import('@/components/ChismeFooter/ChismeFooter')
 
 
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
