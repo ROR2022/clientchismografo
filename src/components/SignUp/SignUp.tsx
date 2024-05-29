@@ -41,7 +41,7 @@ const SignUp = () => {
         ),
         password: yup.string().required().min(8).matches(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#%&])(?=.{8,})/,
-            "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+            "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character !@#%&"
         ),
         repeatedPassword: yup.string().required("is required").oneOf([yup.ref('password')], 'Passwords must match'),
         tyc: yup.bool().required().oneOf([true], 'T&C must be accepted'),

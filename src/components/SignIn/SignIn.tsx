@@ -40,7 +40,7 @@ const SignIn = () => {
       ),
       password: yup.string().required().min(8).matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#%&])(?=.{8,})/,
-        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character !@#%&"
       ),
       
     });
