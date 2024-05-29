@@ -189,7 +189,7 @@ const AllChismes = () => {
         .then((registration) => {
             console.log("Service Worker registered(out):...", registration);
 
-            
+                
                 registration.pushManager.subscribe({
                     userVisibleOnly: true,
                     applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),

@@ -20,6 +20,7 @@ import { Nav } from 'react-bootstrap';
 import { createChisme } from '@/api/apiChismes';
 import { useContext } from 'react';
 import { MyContext } from '@/context/MyContext';
+import { createNotification } from '@/api/apiNotifications';
 
 
 const initDataChisme={
@@ -65,6 +66,10 @@ const Publish = () => {
         const responseCreateChisme = await createChisme(dataChisme)
         //console.log('response createChisme:..',responseCreateChisme);
         if(responseCreateChisme._id){
+            //enviar Notificacion a todos los usuarios de que se ha creado un nuevo chisme
+            const dataNotification = `Nuevo chisme creado por: ${dataLocalStorage.name} ${dataLocalStorage.lastName}`;
+            const resNotification = await createNotification(dataNotification);
+            console.log('resNotification:..',resNotification);
         setLoading(false);
             setSuccess(true);
             setShowModal(true);
