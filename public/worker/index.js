@@ -1,4 +1,4 @@
-import { getMessaging } from "firebase/messaging/sw";
+/* import { getMessaging } from "firebase/messaging/sw";
 import { onBackgroundMessage } from "firebase/messaging/sw";
 import { initializeApp } from "firebase/app";
 
@@ -24,13 +24,14 @@ onBackgroundMessage(messaging, (payload) => {
   
     self.registration.showNotification(notificationTitle,
       notificationOptions);
-  });
+  }); */
 
 
 
 self.addEventListener("push", (event) => {
+    console.log("Push received:..", event);
     event.waitUntil(
-      self.registration.showNotification("SpeakBits", {
+      self.registration.showNotification("Gossip RorApp", {
         body: event.data.text(),
         icon: "/icon-192x192.png"
       })
@@ -38,6 +39,7 @@ self.addEventListener("push", (event) => {
   });
   
   self.addEventListener("notificationclick", (event) => {
+    console.log("Notification click:..", event);
     event.notification.close();
     event.waitUntil(
       self.clients

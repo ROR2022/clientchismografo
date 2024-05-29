@@ -15,7 +15,7 @@ onMessage(messaging, (payload) => {
 
 export default function Home() {
   useEffect(() => {
-    if ("serviceWorker" in navigator) {
+    /* if ("serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("/worker/index.js")
         .then((registration) => {
@@ -24,7 +24,7 @@ export default function Home() {
         .catch((error) => {
           console.log("Service worker registration failed");
         });
-    }
+    } */
   }, []);
   return (
     <div >
