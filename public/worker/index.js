@@ -29,10 +29,12 @@ onBackgroundMessage(messaging, (payload) => {
 
 
 self.addEventListener("push", (event) => {
-    console.log("Push received:..", event);
+    //console.log("Push received:..", event);
+    const dataEvent = event.data.json();
+    console.log("Push received:..", dataEvent);
     event.waitUntil(
       self.registration.showNotification("Gossip RorApp", {
-        body: event.data.text(),
+        body: dataEvent.body,
         icon: "/icon-192x192.png"
       })
     );
