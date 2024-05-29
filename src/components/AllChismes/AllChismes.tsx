@@ -188,8 +188,8 @@ const AllChismes = () => {
         navigator.serviceWorker.register("/worker/index290524b.js")
         .then((registration) => {
             console.log("Service Worker registered(out):...", registration);
-            navigator.serviceWorker.ready.then((registration) => {
-                console.log("Service Worker registered(in):...", registration);
+
+            
                 registration.pushManager.subscribe({
                     userVisibleOnly: true,
                     applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
@@ -219,7 +219,7 @@ const AllChismes = () => {
                 }).catch((error) => {
                     console.error('Error gettin subscription pushManager service worker:', error);
                 });
-            });
+            
             
 
         }).catch((error) => {
